@@ -1,0 +1,56 @@
+//code starts here
+#define ll long long
+#define print(vect) for(auto& x : vect){ cout<<x<<" "; }
+void merge(vector<int>& nums3,vector<int>& nums1,vector<int>& nums2)
+{
+    ll p1 = 0,p2 = 0;
+    while(p1<nums1.size()&&p2<nums2.size())
+    {
+        if(nums1[p1]<nums2[p2])
+        {
+            nums3.push_back(nums1[p1]);
+            p1++;
+        }
+        else
+        {
+            nums3.push_back(nums2[p2]);
+            p2++;
+        }
+    }
+    while(p1<nums1.size())
+    {
+        nums3.push_back(nums1[p1]);
+        p1++;
+    }
+    while(p2<nums2.size())
+    {
+        nums3.push_back(nums2[p2]);
+        p2++;
+    }
+    return ;
+}
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) 
+    {
+        vector<int> nums3;
+        merge(nums3,nums1,nums2);
+        ll  n = nums3.size();
+        //print(nums3);
+        float answer;
+        if(n%2!=0)
+        {
+            answer = nums3[n/2];
+        }
+        else
+        {
+            float a,b,c;
+            a = nums3[n/2];
+            b = nums3[(n/2)-1];
+            //cout<<a<<b;
+            c = (a+b)/2;
+            answer = c;
+        }
+        return answer;
+    }
+};
