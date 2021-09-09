@@ -1,0 +1,32 @@
+//code starts here
+#define ll long long
+class Solution 
+{
+public:
+    int lengthOfLongestSubstring(string s) 
+    {
+        int start = 0;
+        int end = s.length()-1;
+        if(s.length()==0){ return 0; }
+        else if(s.length()==1){ return 1; }
+        int len = 1;
+        end = start + 1;
+        map<char,int> mp;
+        mp[s[start]]++;
+        int maxlen = 1;
+        while(end<s.length())
+        {
+            while(mp[s[end]]!=0)
+            {
+                mp[s[start]]--;
+                start++;
+                len--;
+            }
+            mp[s[end]]++;
+            end++;
+            len++;
+            if(len>maxlen){ maxlen = len; }
+        }
+        return maxlen;
+    }
+};
