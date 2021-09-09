@@ -1,0 +1,43 @@
+// code starts here
+#define ll long long 
+#define rep(i,n) for(ll i = 0;i<n;i++)
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) 
+    {
+        vector<int> answer;
+        vector<int> vect;
+        ll n = target/2;
+        if(n*2!=target){ n=INT_MIN; }
+        map<int,int> mp;
+        rep(i,nums.size())
+        {
+            if(nums[i]!=n)
+            {
+                mp[nums[i]] = i+1;
+            }
+            else
+            {
+                vect.push_back(i);
+            }
+        }
+        rep(i,nums.size())
+        {
+            if(nums[i]!=n)
+            {
+                if(mp[nums[i]]>0&&mp[target-nums[i]]>0)
+                {
+                    answer.push_back(mp[nums[i]]-1);
+                    answer.push_back(mp[target-nums[i]]-1);
+                    break;
+                }
+            }
+        }
+        if(answer.size()==0)
+        {
+            answer.push_back(vect[0]);
+            answer.push_back(vect[1]);
+        }
+        return answer;
+    }
+};
