@@ -1,0 +1,67 @@
+//code starts here
+#define node ListNode
+#define SZ(x) ((int)(x).size())
+#define data val
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) 
+    {
+        int add,carry = 0;
+        node* l3 = new ListNode;
+        add = l1->data + l2->data;
+        carry = add/10;
+        add = add%10;
+        l3->data = add;
+        l3->next = NULL;
+        node* last = l3;
+        l1 = l1->next;
+        l2 = l2->next;
+        while(l1&&l2)
+        {
+            add = l1->data + l2->data + carry;
+            carry = add/10;
+            add = add%10;
+            node* temp = new node;
+            temp->data = add;
+            temp->next = NULL;
+            last->next = temp;
+            last = temp;
+            l1 = l1->next;
+            l2 = l2->next;
+        }
+        while(l1)
+        {
+            add = l1->data + carry;
+            carry = add/10;
+            add = add%10;
+            node* temp = new node;
+            temp->data = add;
+            temp->next = NULL;
+            last->next = temp;
+            last = temp;
+            l1 = l1->next;
+        }
+        while(l2)
+        {
+            add = l2->data + carry;
+            carry = add/10;
+            add = add%10;
+            node* temp = new node;
+            temp->data = add;
+            temp->next = NULL;
+            last->next = temp;
+            last = temp;
+            l2 = l2->next;
+        }
+        cout<<carry;
+        if(carry!=0)
+        {
+            node* temp = new node;
+            temp->data = carry;
+            temp->next = NULL;
+            last->next = temp;
+            last = temp;
+        }
+        return l3;
+    }
+};
