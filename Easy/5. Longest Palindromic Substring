@@ -1,1 +1,59 @@
-
+//code starts here
+//Algo to find max palindromic substring of a string
+//Approach used : Manacher's Algorithm
+#define ll long long
+class Solution {
+public:
+    string longestPalindrome(string s) 
+    {
+        ll n = s.length();
+        ll len[(2*n)+3];
+        //for(ll i=0;i<(2*n)+3;i++){ len[i]=0; }
+        char str[(2*n)+3];
+        ll j=0;
+        str[j++] = '%';
+        for(ll i=0;i<n;i++)
+        {
+            str[j++] = '#';
+            str[j++] = s[i];
+        }
+        str[j++] = '#';
+        str[j] = '&';
+        ll c = 0;
+        ll r = 0;
+        ll maxlen = 0;
+        ll maxc = 0;
+        for(ll i=1;i<=(2*n)+1;i++)
+        {
+            j = c-(i-c);
+            if(i<r)
+            {
+                len[i] = min(r-i,len[j]);
+            }
+            else
+            {
+                len[i] = 0;
+            }
+            while(str[i-len[i]-1]==str[i+len[i]+1])
+            {
+                len[i]++;
+            }
+            if(i+len[i]>r)
+            {
+                c = i;
+                r = len[i] + i;
+            }
+            if(len[i]>maxlen)
+            {
+                maxlen = len[i];
+                maxc = c;
+            }
+        }
+        string answer;
+        for(ll i=maxc-maxlen+1;i<maxc+maxlen;i+=2)
+        {
+            answer += str[i];
+        }
+        return answer;
+}
+};
